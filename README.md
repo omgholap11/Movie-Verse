@@ -1,3 +1,14 @@
+---
+title: MovieVerse
+emoji: 🎬
+colorFrom: red
+colorTo: purple
+sdk: streamlit
+sdk_version: 1.28.0
+app_file: app.py
+pinned: false
+---
+
 # 🎬 MovieVerse - AI-Powered Movie Recommendation System
 
 <div align="center">

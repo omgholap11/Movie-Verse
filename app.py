@@ -197,8 +197,8 @@ def recommendations(movie):
             break
             
         movie_id = movies_dict.iloc[i[0]].movie_id
-        movie_poster = fetch_poster(movie_id)
-        # movie_poster = "https://th.bing.com/th/id/OIP.xt3965q3uAhcXSoqdjCe3gHaEK?w=150&h=108&c=7&qlt=90&bgcl=3dbf6d&r=0&o=6&dpr=1.3&pid=13.1"
+        # movie_poster = fetch_poster(movie_id)
+        movie_poster = "https://th.bing.com/th/id/OIP.KNfIqaD92jvecpbxNWWQ4wHaJ4?w=134&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"  ## i am using this default due to the tmdb outage 
 
         # Only add if poster was successfully fetched
         if movie_poster:

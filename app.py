@@ -7,6 +7,12 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Validate API key
+api_key = os.getenv('TMDB_API_KEY')
+if not api_key:
+    st.error("⚠️ TMDB_API_KEY not configured. Please add it in Space settings under 'Variables and secrets'.")
+    st.stop()
+
 # Page configuration
 st.set_page_config(
     page_title="MovieVerse - AI Recommendations",

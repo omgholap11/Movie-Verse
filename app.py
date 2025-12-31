@@ -247,7 +247,7 @@ if recommend_button:
         for idx, col in enumerate(cols):
             with col:
                 # Movie poster with hover effect
-                st.image(recommended_movie_poster[idx], use_container_width=True)
+                st.image(recommended_movie_poster[idx], use_column_width=True)
                 
                 # Movie title
                 st.markdown(f'<div class="movie-title">{recommended_movie_name[idx]}</div>', unsafe_allow_html=True)

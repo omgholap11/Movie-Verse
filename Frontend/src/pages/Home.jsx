@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
-import { fetchTrendingMovies, fetchPopularMovies } from '../services/tmdb';
+import { fetchTrendingMovies, fetchPopularMovies, fetchHindiMovies, fetchMarathiMovies, fetchSouthIndianMovies } from '../services/tmdb';
 import MovieCard from '../components/MovieCard';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Home = () => {
-  const [trending, setTrending] = useState([]);
-  const [popular, setPopular] = useState([]);
+  const [data, setData] = useState({
+    trending: [],
+    popular: [],
+    hindi: [],
+    marathi: [],
+    south: []
+  });
+  
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [heroImage, setHeroImage] = useState(null);
@@ -14,13 +20,27 @@ const Home = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [trendingMovies, popularMovies] = await Promise.all([
+        const [
+          trendingMovies, 
+          popularMovies, 
+          hindiMovies, 
+          marathiMovies, 
+          southMovies
+        ] = await Promise.all([
           fetchTrendingMovies(),
-          fetchPopularMovies()
+          fetchPopularMovies(),
+          fetchHindiMovies(),
+          fetchMarathiMovies(),
+          fetchSouthIndianMovies()
         ]);
         
-        setTrending(trendingMovies);
-        setPopular(popularMovies);
+        setData({
+          trending: trendingMovies || [],
+          popular: popularMovies || [],
+          hindi: hindiMovies || [],
+          marathi: marathiMovies || [],
+          south: southMovies || []
+        });
         
         // Set a trending movie as the hero background if it has a backdrop
         if (trendingMovies && trendingMovies.length > 0) {
@@ -45,10 +65,36 @@ const Home = () => {
     }
   };
 
+  const renderSection = (title, items, categoryKey) => {
+    if (!items || items.length === 0) return null;
+    
+    return (
+      <div className="max-w-[1800px] mx-auto px-6 md:px-12 pb-24 relative z-20 bg-black">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-6">
+          <div>
+            <h2 className="text-4xl font-bold tracking-tight text-white mb-2">{title}</h2>
+          </div>
+          <Link 
+            to={`/explore/${categoryKey}`}
+            className="mt-4 md:mt-0 px-6 py-2 border border-white/20 rounded-full text-sm font-semibold tracking-widest uppercase text-white hover:bg-white hover:text-black hover:border-white transition duration-300"
+          >
+            Explore All
+          </Link>
+        </div>
+        
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+          {items.slice(0, 5).map(movie => ( // Strictly only showing 5 here
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="w-full bg-black min-h-screen text-white font-sans">
       {/* Hero Section */}
-      <div className="relative w-full min-h-[85vh] flex flex-col justify-center items-center text-center px-4 overflow-hidden py-20">
+      <div className="relative w-full min-h-[85vh] flex flex-col justify-center items-center text-center px-4 overflow-hidden py-20 mb-20">
         {heroImage ? (
           <img src={heroImage} alt="Featured Movie" className="absolute inset-0 w-full h-full object-cover opacity-40 select-none transition-opacity duration-1000 blur-[1px]" />
         ) : (
@@ -81,52 +127,19 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Trending Section */}
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12 py-24 relative z-20 bg-black">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-6">
-          <div>
-            <h2 className="text-4xl font-bold tracking-tight text-white mb-2">Trending Now</h2>
-            <p className="text-zinc-400 font-light text-lg">The most popular films worldwide, updated daily.</p>
-          </div>
-          <button className="hidden md:block mt-4 md:mt-0 px-6 py-2 border border-white/20 rounded-full text-sm font-semibold tracking-widest uppercase text-white hover:bg-white hover:text-black transition duration-300">
-            Explore All
-          </button>
+      {loading ? (
+        <div className="flex justify-center items-center h-64 opacity-50 pb-40">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
         </div>
-        
-        {loading ? (
-          <div className="flex justify-center items-center h-64 opacity-50">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-            {trending.slice(0, 10).map(movie => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Popular Section */}
-      <div className="max-w-[1800px] mx-auto px-6 md:px-12 pb-24 relative z-20 bg-black">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-6">
-          <div>
-            <h2 className="text-4xl font-bold tracking-tight text-white mb-2">Popular Classics</h2>
-            <p className="text-zinc-400 font-light text-lg">Highly acclaimed movies matching your taste.</p>
-          </div>
-        </div>
-        
-        {loading ? (
-          <div className="flex justify-center items-center h-64 opacity-50">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-            {popular.slice(0, 10).map(movie => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
-          </div>
-        )}
-      </div>
+      ) : (
+        <>
+          {renderSection("Trending Now", data.trending, "trending")}
+          {renderSection("Popular Classics", data.popular, "popular")}
+          {renderSection("Hindi Cinema blockbusters", data.hindi, "hindi")}
+          {renderSection("Marathi Hits", data.marathi, "marathi")}
+          {renderSection("South Indian Epics", data.south, "south")}
+        </>
+      )}
     </div>
   );
 };

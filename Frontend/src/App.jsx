@@ -6,6 +6,7 @@ import MovieDetails from './pages/MovieDetails';
 import Recommendations from './pages/Recommendations';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Explore from './pages/Explore';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <main className="flex-grow w-full">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/explore/:category" element={<Explore />} />
           <Route path="/movie/:id" element={<MovieDetails />} />
           <Route path="/recommendations" element={<Recommendations />} />
           <Route path="/about" element={<About />} />

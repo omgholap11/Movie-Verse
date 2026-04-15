@@ -9,20 +9,21 @@ app_file: app.py
 pinned: false
 ---
 
-# 🎬 MovieVerse - AI-Powered Movie Recommendation System
+# 🎬 MovieVerse - AI-Powered Movie Insight and Recommendation Engine
 
 <div align="center">
 
 ![MovieVerse Banner](https://img.shields.io/badge/MovieVerse-AI%20Recommendations-E50914?style=for-the-badge&logo=netflix)
 
-**An intelligent movie recommendation system powered by Machine Learning and Content-Based Filtering**
+**A professional, full-stack movie discovery platform powered by React, FastAPI, and Content-Based Machine Learning.**
 
-[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.31+-FF4B4B?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![React](https://img.shields.io/badge/React-18.2+-61DAFB?style=flat&logo=react&logoColor=black)](https://reactjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![TMDB API](https://img.shields.io/badge/TMDB-API-01D277?style=flat&logo=themoviedatabase&logoColor=white)](https://www.themoviedb.org/)
-[![Hugging Face](https://img.shields.io/badge/🤗-Hugging%20Face-yellow)](https://huggingface.co/spaces/itzz-omii45/MovieVerse)
+[![Streamlit](https://img.shields.io/badge/Legacy_UI-Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
 
-[Live Demo](https://huggingface.co/spaces/itzz-omii45/MovieVerse) • [Features](#-features) • [Installation](#-installation) • [Tech Stack](#-tech-stack) • [How It Works](#-how-it-works)
+[Live Demo](#-live-demo) • [Features](#-features) • [Installation Options](#-quick-start) • [Tech Stack](#-tech-stack)
 
 </div>
 
@@ -30,41 +31,40 @@ pinned: false
 
 ## 🌐 Live Demo
 
-**Try MovieVerse now!** 🚀
+Try the cloud-deployed legacy version of MovieVerse! 🚀
 
 [![Open in Hugging Face](https://img.shields.io/badge/🤗-Open%20in%20Hugging%20Face-yellow?style=for-the-badge)](https://huggingface.co/spaces/itzz-omii45/MovieVerse)
 
-**Live App:** https://huggingface.co/spaces/itzz-omii45/MovieVerse
+**Live Streamlit App:** https://huggingface.co/spaces/itzz-omii45/MovieVerse
 
 ---
 
 ## 📖 Overview
 
-**MovieVerse** is a content-based movie recommendation system that suggests personalized movies based on your preferences. Using advanced Natural Language Processing (NLP) techniques and machine learning algorithms, MovieVerse analyzes movie metadata to find the most similar films you'll love.
+**MovieVerse** has evolved from a standalone Python script into a robust 2-Tier web application. The platform uses Natural Language Processing (NLP) to analyze movie metadata (genres, keywords, cast, plot) and leverages the **Bag of Words** model along with a pre-computed **Cosine Similarity** matrix to suggest hyper-accurate, personalized cinematic matches. 
 
-The system leverages the **Bag of Words** model and **Cosine Similarity** to compute relationships between movies, providing accurate and relevant recommendations in a sleek, Netflix-inspired user interface.
+The new architecture decouples the resource-heavy Similarity Engine into a Python **FastAPI backend** while delivering a highly professional, cinematic UX via a modern **React + Vite** frontend.
 
 ---
 
 ## ✨ Features
 
-- 🎯 **Personalized Recommendations** - Get 5 tailored movie suggestions based on your selection
-- 🎨 **Modern UI/UX** - Sleek black theme with Netflix-inspired design
-- 🖼️ **Dynamic Posters** - Real-time movie poster fetching from TMDB API
-- ⚡ **Fast Performance** - Optimized similarity computation using pre-trained models
-- 🔒 **Secure Configuration** - Environment-based API key management
-- 📱 **Responsive Design** - Works seamlessly across all devices
-- 🎬 **Interactive Cards** - Hover effects and smooth animations
-- 🌐 **Cloud Deployment** - Hosted on Hugging Face Spaces
+- 🎯 **Advanced AI Recommendations:** Deep context-based filtering powered by TF-IDF vectorization.
+- 🎨 **Cinematic UI/UX:** A stunning, ultra-modern monochrome interface powered by Tailwind CSS.
+- 🌏 **Regional Infinite Exploring:** Endless scrolling across Hollywood, Bollywood, Marathi, and South Indian cinema.
+- ⚡ **Asynchronous Speed:** Uvicorn/FastAPI backend ensures zero blocking and millisecond vector inferences.
+- 🖼️ **Dynamic TMDB Streaming:** All cast profiles, plots, trailers, and HD backdrops fetched securely at runtime.
+- 🎭 **Fuzzy NLP Matching:** Robust backend routing seamlessly handles typos and varied search casing.
 
 ---
 
 ## 🚀 Quick Start
 
-### Try it Online
-Visit the live demo: **[MovieVerse on Hugging Face](https://huggingface.co/spaces/itzz-omii45/MovieVerse)**
+MovieVerse uniquely supports running in two distinct modes. Choose depending on your needs.
 
-### Run Locally
+### 🥇 Mode 1: The Full-Stack Architecture (Recommended)
+
+Experience the premium UI and decoupled API performance.
 
 1. **Clone the Repository**
    ```bash
@@ -72,73 +72,65 @@ Visit the live demo: **[MovieVerse on Hugging Face](https://huggingface.co/space
    cd Movie-Verse
    ```
 
-2. **Install Dependencies**
+2. **Configure API Keys**
+   Create a `.env` file inside the `Frontend` folder:
+   ```bash
+   VITE_TMDB_API_KEY=your_tmdb_api_key_here
+   ```
+
+3. **Start the FastAPI Backend**
+   Open a new terminal window:
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   uvicorn main:app --reload --port 8000
+   ```
+
+4. **Start the React Frontend**
+   Open another terminal window:
+   ```bash
+   cd Frontend
+   npm install
+   npm run dev
+   ```
+   Navigate to `http://localhost:5173` to explore the application!
+
+---
+
+### 🥈 Mode 2: The Minimalist Streamlit Application 
+
+If you do not have Node/React installed or just want to run the legacy single-file architecture:
+
+1. **Install Dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Set Up API Key**
-   
-   Create a `.env` file:
+2. **Configure API Keys**
+   Create a `.env` file in the root folder:
    ```bash
    TMDB_API_KEY=your_api_key_here
    ```
-   
-   Get your free API key from [TMDB](https://www.themoviedb.org/settings/api)
 
-4. **Run the App**
+3. **Run Streamlit**
    ```bash
    streamlit run app.py
    ```
-
-5. **Open in Browser**
-   ```
-   http://localhost:8501
-   ```
+   Navigate to `http://localhost:8501` to view.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Streamlit** - Interactive web framework
-- **HTML/CSS** - Custom Netflix-inspired styling
+### Frontend Ecosystem
+- **React.js 18 + Vite** - Core component rendering and rapid dev server.
+- **Tailwind CSS** - Utility styling for responsive layouts.
+- **React Router Dom** - Dynamic client-side routing.
 
-### Backend & ML
-- **Python 3.8+** - Core programming language
-- **Pandas** - Data manipulation
-- **NumPy** - Numerical computations
-- **Scikit-learn** - Machine learning algorithms
-- **Cosine Similarity** - Recommendation algorithm
-
-### APIs & Services
-- **TMDB API** - Movie metadata and posters
-- **Hugging Face Spaces** - Cloud deployment platform
-- **Git LFS** - Large file storage for ML models
-
----
-
-## 🧠 How It Works
-
-### 1. **Data Processing**
-- Uses **TMDB 5000 Movie Dataset** from Kaggle
-- Combines movie features (genres, cast, crew, keywords) into text tags
-- Preprocesses text (lowercase, remove stopwords, stemming)
-
-### 2. **Vectorization**
-- **Bag of Words (BoW)** model converts text to numerical vectors
-- Creates vocabulary of top 5000 most frequent words
-- Each movie represented as a vector of word counts
-
-### 3. **Similarity Computation**
-- **Cosine Similarity** measures angle between movie vectors
-- Formula: `cosine_similarity(A, B) = (A · B) / (||A|| × ||B||)`
-- Generates 5000×5000 similarity matrix
-
-### 4. **Recommendations**
-- Finds movies with highest similarity scores
-- Returns top 5 most similar movies
-- Fetches posters in real-time from TMDB API
+### Backend Engine
+- **FastAPI / Python** - Asynchronous REST API servicing machine learning data.
+- **Pandas & Scikit-Learn** - Core ML data structuring and calculations.
+- **Uvicorn** - High-performance ASGI web server.
 
 ---
 
@@ -146,84 +138,20 @@ Visit the live demo: **[MovieVerse on Hugging Face](https://huggingface.co/space
 
 ```
 MovieVerse/
-├── app.py                  # Main Streamlit application
-├── movies.pkl              # Preprocessed movie dataset (2.28 MB)
-├── simillarities.pkl       # Similarity matrix (176 MB - Git LFS)
-├── requirements.txt        # Python dependencies
-├── .env                    # API keys (local only)
-├── .gitignore             # Git ignore rules
-├── .gitattributes         # Git LFS configuration
-├── .huggingface/          # Hugging Face Space config
-└── README.md              # Documentation
+├── Frontend/               # Complete React + Vite Application
+│   ├── src/                # UI Components and TMDB Service Hookups
+│   ├── index.css           # Global Tailwind Directives
+│   └── .env                # React environmental variables (starts with VITE_)
+│
+├── backend/                # Decoupled Inference API
+│   ├── main.py             # FastAPI routing and ML logic
+│   └── requirements.txt    # Python dependencies
+│
+├── app.py                  # Legacy Streamlit single-page application
+├── movies.pkl              # Serialized NLP Dataset (Fast load)
+├── simillarities.pkl       # 5000x5000 Cosine Similarity matrix (Git LFS)
+└── README.md               # Documentation
 ```
-
----
-
-## 🌟 Deployment
-
-### Hugging Face Spaces
-
-This project is deployed on **Hugging Face Spaces** using:
-
-- **SDK:** Streamlit
-- **Hardware:** CPU (free tier)
-- **Git LFS:** For large pickle files (similarity matrix)
-- **Secrets:** TMDB API key stored securely
-
-**Deployment Steps:**
-1. Created Hugging Face Space with Streamlit SDK
-2. Configured Git LFS for large files (`*.pkl`)
-3. Added YAML frontmatter to README for Space configuration
-4. Pushed code with `git push hf main`
-5. Added `TMDB_API_KEY` as a secret in Space settings
-
-**Live URL:** https://huggingface.co/spaces/itzz-omii45/MovieVerse
-
----
-
-## 🎯 Usage
-
-1. **Select a Movie** - Choose from 5000+ movies in the dropdown
-2. **Get Recommendations** - Click the "🎭 Get Recommendations" button
-3. **Explore Results** - View 5 personalized movie suggestions with posters
-4. **Hover & Interact** - Enjoy smooth animations and hover effects
-
----
-
-## 📈 Performance
-
-- **Dataset:** 5000 movies
-- **Similarity Matrix:** 5000 × 5000 = 25M comparisons
-- **Response Time:** < 1 second
-- **Memory Usage:** ~180 MB (similarity matrix)
-- **API Calls:** 5 per recommendation request
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License.
-
----
-
-## 🙏 Acknowledgments
-
-- **TMDB** - Movie database and API
-- **Kaggle** - TMDB 5000 Movie Dataset
-- **Streamlit** - Web framework
-- **Hugging Face** - Deployment platform
-- **Scikit-learn** - ML tools
 
 ---
 
@@ -233,13 +161,3 @@ This project is licensed under the MIT License.
 **Email:** iomgholap123@gmail.com  
 **GitHub:** [omgholap11](https://github.com/omgholap11)  
 **LinkedIn:** [Om Gholap](https://www.linkedin.com/in/om-gholap-4b011b293)
-
----
-
-<div align="center">
-
-**⭐ Star this repository if you found it helpful!**
-
-**[Try MovieVerse Live](https://huggingface.co/spaces/itzz-omii45/MovieVerse)** 🎬
-
-</div>

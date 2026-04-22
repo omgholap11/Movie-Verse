@@ -13,6 +13,7 @@ const Home = () => {
   });
   
   const [search, setSearch] = useState('');
+  const [availableMovies, setAvailableMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [heroImage, setHeroImage] = useState(null);
   const navigate = useNavigate();
@@ -48,6 +49,16 @@ const Home = () => {
           if (moviesWithBackdrops.length > 0) {
             setHeroImage(`https://image.tmdb.org/t/p/original${moviesWithBackdrops[0].backdrop_path}`);
           }
+        }
+        
+        // Fetch trained ML movies list for search autocomplete
+        try {
+          const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
+          const moviesRes = await fetch(`${backendUrl}/api/movies`);
+          const moviesData = await moviesRes.json();
+          if (moviesData.movies) setAvailableMovies(moviesData.movies);
+        } catch (e) {
+          console.error("Could not load trained movies list from backend", e);
         }
       } catch (error) {
         console.error("Failed to load movies:", error);
@@ -114,12 +125,18 @@ const Home = () => {
           
           <form onSubmit={handleSearch} className="w-full max-w-3xl relative flex items-center rounded-full ring-1 ring-white/30 bg-black/40 backdrop-blur-xl hover:ring-white/50 focus-within:ring-white focus-within:bg-black/60 transition-all shadow-2xl shadow-black">
             <input 
+              list="movie-options"
               type="text" 
               placeholder="Search for a movie title..." 
               className="w-full py-6 px-10 rounded-full bg-transparent text-white placeholder-zinc-400 focus:outline-none text-xl font-light"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
+            <datalist id="movie-options">
+              {availableMovies.map((title, index) => (
+                <option key={index} value={title} />
+              ))}
+            </datalist>
             <button type="submit" className="absolute right-3 bg-white text-black hover:bg-zinc-300 px-10 py-4 rounded-full font-bold uppercase tracking-wide text-sm transition duration-300 shadow-xl">
               Analyze
             </button>

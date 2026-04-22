@@ -22,6 +22,12 @@ try:
     similarity = pickle.load(open('../simillarities.pkl', 'rb'))
 except Exception as e:
     print("Warning: Could not load machine learning artifacts.", e)
+@app.get("/api/movies")
+def get_all_movies():
+    try:
+        return {"movies": movies['title'].tolist()}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Could not fetch movies")
 
 @app.get("/api/recommend")
 def recommend_movies(movie: str):
@@ -42,7 +48,7 @@ def recommend_movies(movie: str):
             movie_id = int(movies.iloc[i[0]].movie_id)
             title = str(movies.iloc[i[0]].title)
             recommended_movies.append({"id": movie_id, "title": title})
-            
+            print(recommended_movies)
         return {"movie": movie, "recommendations": recommended_movies}
     except IndexError:
         raise HTTPException(status_code=404, detail="Movie not found in database.")
